@@ -1,0 +1,37 @@
+version: '3'
+services:
+  app:
+    container_name: 'laravel-react-posts'
+    image: 8.1.4-apache-buster
+    build:
+      context: ../laravel-react-posts/container/context
+      dockerfile: php8-Dockerfile
+    volumes:
+            - ../laravel-react-posts/public_html/:/var/www/html/
+            - ../laravel-react-posts/container/context/conf/apache-vhost.conf:/etc/apache2/sites-enabled/000-default.conf
+    ports:
+      - "8091:80"
+    environment:
+        SERVER: "mysql8_db"
+        DBUSER: "user"
+        PASS: "user"
+        NAME: "mysql8_db"
+        TZ: "America/Sao_Paulo"
+    depends_on:
+      - mysql8_db
+  mysql8_db:
+    container_name: mysql8_db
+    image: mysql:8
+    volumes:
+            - ./container/mysql/:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "user"
+      DBUSER: "user"
+      PASS: "user"
+      NAME: "mysql8_db"
+    ports:
+      - "3310:3306"
+volumes:
+  dbdata:
