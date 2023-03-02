@@ -17,7 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/posts', [PostsController::class, 'index']);
+    Route::get('/post', [PostsController::class, 'index']);
+    Route::post('/post', [PostsController::class, 'store']);
+    Route::put('/post/{id}', [PostsController::class, 'update']);
+    Route::delete('/post/{id}', [PostsController::class, 'destroy']);
 
 });
 
