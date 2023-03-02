@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-
+    protected $table = 'posts';
     /**
      * The attributes that are mass assignable.
      *
